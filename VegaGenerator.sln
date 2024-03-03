@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34607.79
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VegaGenerator", "VegaGenerator\VegaGenerator.csproj", "{E184763E-2063-4618-9C07-950E4DE3B4A7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E184763E-2063-4618-9C07-950E4DE3B4A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E184763E-2063-4618-9C07-950E4DE3B4A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E184763E-2063-4618-9C07-950E4DE3B4A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E184763E-2063-4618-9C07-950E4DE3B4A7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DFF73CE6-1751-4640-8F1B-DB3F7A33E405}
+	EndGlobalSection
+EndGlobal
