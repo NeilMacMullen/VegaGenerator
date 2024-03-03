@@ -4,7 +4,24 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Title>VegaGenerator</Title>
+    <Version>1.0.0</Version>
+    <Authors>Neil MacMullen</Authors>
+    <Description>Simple creation of VegaLite charts</Description>
+    <Copyright>(C) Neil MacMullen</Copyright>
+    <PackageProjectUrl>https://github.com/NeilMacMullen/VegaGenerator</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/NeilMacMullen/VegaGenerator</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>Vega VegaLite chart</PackageTags>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="JPoke" Version="1.0.0" />
