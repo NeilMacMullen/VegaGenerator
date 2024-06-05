@@ -1,0 +1,21 @@
+﻿<Window x:Class="Demo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Bottom">
+            <Button DockPanel.Dock="Right" Click="OnRender">Render</Button>
+            <StackPanel Orientation="Horizontal">
+                <ComboBox Name="ChartOption" MinWidth="200" />
+
+                <ComboBox Name="Theme" />
+            </StackPanel>
+
+        </DockPanel>
+        <wv2:WebView2 DockPanel.Dock="Top" Name="webview" DefaultBackgroundColor="Black" />
+    </DockPanel>
+</Window>

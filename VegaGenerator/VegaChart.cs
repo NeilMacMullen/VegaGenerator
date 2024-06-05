@@ -15,13 +15,18 @@ public class VegaChart
     }
 
     private string Axis(VegaAxisName name) => $"encoding.{ToVegaString(name)}";
-
+    private Dictionary<VegaAxisName,ColumnDescription> _columns = new();
     public VegaChart AddSeries(VegaAxisName axisName, ColumnDescription column)
     {
         var axis = Axis(axisName);
         _builder.Set($"{axis}.axis.title", column.Text);
         _builder.Set($"{axis}.field", column.QualifiedColumnName);
         _builder.Set($"{axis}.type", ToVegaString(column.VegaAxisType));
+        if (axisName==VegaAxisName.X && column.VegaAxisType == VegaAxisType.Nominal)
+        {
+            _builder.Set($"{axis}.sort",null);
+        }
+        _columns[axisName] = column; 
         return this;
     }
 
@@ -212,6 +217,8 @@ public class VegaChart
         return this;
     }
 
+    private VegaAxisType GetAxisType(VegaAxisName axisName) => _columns.TryGetValue(axisName, out var c) ? c.VegaAxisType : VegaAxisType.Nominal;
+
     public VegaChart UseCursorTooltip()
     {
         var xAxisField = _builder.Get($"{Axis(VegaAxisName.X)}.field", string.Empty);
@@ -220,6 +227,11 @@ public class VegaChart
 
         //note to cope with spaces and invalid chars in the x-axis name we use bracket rather than dot notation
         //to embed it in the calculate expression
+
+        var xTransformation = GetAxisType(VegaAxisName.X) == VegaAxisType.Temporal 
+            ? $$$""",{"calculate": "datetime(datum['{{{xAxisField}}}'])", "as": "{{{xAxisField}}}"}"""
+            : string.Empty;
+
         var rulerLayer = $$$"""
                             [
                             {
@@ -230,8 +242,8 @@ public class VegaChart
                             },
                             {
                               "transform": [
-                              {"pivot": "{{{colorAxisField}}}", "value": "{{{yAxisField}}}", "groupby": ["{{{xAxisField}}}"]},
-                                {"calculate": "datetime(datum['{{{xAxisField}}}'])", "as": "{{{xAxisField}}}"}
+                              {"pivot": "{{{colorAxisField}}}", "value": "{{{yAxisField}}}", "groupby": ["{{{xAxisField}}}"]}
+                                {{{xTransformation}}}
                             
                               ],
                               "mark": { "type" : "rule",

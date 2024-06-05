@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <PackageReference Include="JPoke" Version="1.0.0" />
+    <PackageReference Include="NotNullStrings" Version="1.0.1" />
   </ItemGroup>
 
 </Project>
