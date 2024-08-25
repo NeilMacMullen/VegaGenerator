@@ -4,6 +4,8 @@ A library to help generate VegaLite charts from C# code.
 
 See the included Demo app for examples  
 
+Available on Nuget as *VegaGenerator*
+
 ## Illustrative code
 
 ```CSharp
