@@ -99,6 +99,26 @@ public class VegaChart
         return this;
     }
 
+    public VegaChart SetScale(VegaAxisScale scale)
+    {
+        if (scale.Type == typeof(int))
+        {
+            _builder.Set($"{Axis(scale.AxisName)}.scale.domain", new List<int> { (int)scale.Min, (int)scale.Max });
+        }
+        else if (scale.Type == typeof(double))
+        {
+            _builder.Set($"{Axis(scale.AxisName)}.scale.domain",
+                new List<double> { (double)scale.Min, (double)scale.Max });
+        }
+        else if (scale.Type == typeof(DateTime))
+        {
+            _builder.Set($"{Axis(scale.AxisName)}.scale.domain",
+                new List<DateTime> { (DateTime)scale.Min, (DateTime)scale.Max });
+        }
+
+        return this;
+    }
+
     public static VegaAxisType InferSuitableAxisType(Type t)
     {
         var numericTypes = new[]
