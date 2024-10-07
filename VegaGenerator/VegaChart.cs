@@ -119,6 +119,12 @@ public class VegaChart
         return this;
     }
 
+    public VegaChart SetLabel(VegaAxisName axis, string label)
+    {
+        _builder.Set($"{Axis(axis)}.title", label);
+        return this;
+    }
+
     public static VegaAxisType InferSuitableAxisType(Type t)
     {
         var numericTypes = new[]
