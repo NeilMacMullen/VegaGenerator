@@ -26,7 +26,7 @@ public class VegaChart
         {
             _builder.Set($"{axis}.sort",null);
         }
-        _columns[axisName] = column; 
+        _columns[axisName] = column;
         return this;
     }
 
@@ -84,8 +84,8 @@ public class VegaChart
 
     public VegaChart ConvertToTimeline()
         => RenameAxis(VegaAxisName.Y, VegaAxisName.X2)
-            .CopyAxis(VegaAxisName.Color, VegaAxisName.Y)
-            .DisableLegend();
+           .CopyAxis(VegaAxisName.Color, VegaAxisName.Y)
+           .DisableLegend();
 
     private VegaChart DisableLegend()
     {
@@ -108,12 +108,12 @@ public class VegaChart
         else if (scale.Type == typeof(double))
         {
             _builder.Set($"{Axis(scale.AxisName)}.scale.domain",
-                new List<double> { (double)scale.Min, (double)scale.Max });
+                         new List<double> { (double)scale.Min, (double)scale.Max });
         }
         else if (scale.Type == typeof(DateTime))
         {
             _builder.Set($"{Axis(scale.AxisName)}.scale.domain",
-                new List<DateTime> { (DateTime)scale.Min, (DateTime)scale.Max });
+                         new List<DateTime> { (DateTime)scale.Min, (DateTime)scale.Max });
         }
 
         return this;
@@ -121,17 +121,24 @@ public class VegaChart
 
     public VegaChart SetLabel(VegaAxisName axis, string label)
     {
-        _builder.Set($"{Axis(axis)}.title", label);
+        _builder.Set($"{Axis(axis)}.axis.title", label);
+        return this;
+    }
+
+    public VegaChart UpdateLabel(VegaAxisName axis, string label)
+    {
+        _builder.Remove($"{Axis(axis)}.axis.title");
+        _builder.Set($"{Axis(axis)}.axis.title", label);
         return this;
     }
 
     public static VegaAxisType InferSuitableAxisType(Type t)
     {
         var numericTypes = new[]
-        {
-            typeof(int), typeof(long), typeof(double), typeof(float),
-            typeof(uint), typeof(ulong), typeof(byte), typeof(decimal)
-        };
+                           {
+                               typeof(int), typeof(long), typeof(double), typeof(float),
+                               typeof(uint), typeof(ulong), typeof(byte), typeof(decimal)
+                           };
         if (numericTypes.Contains(t))
             return VegaAxisType.Quantitative;
 
@@ -139,8 +146,8 @@ public class VegaChart
             return VegaAxisType.Ordinal;
 
         return t == typeof(DateTime)
-            ? VegaAxisType.Temporal
-            : VegaAxisType.Nominal;
+                   ? VegaAxisType.Temporal
+                   : VegaAxisType.Nominal;
     }
 
     public VegaChart InjectData(IEnumerable<OrderedDictionary> rows)
@@ -180,11 +187,11 @@ public class VegaChart
     {
         _builder.Set("transform[0].sort[0]", new { field = sourceData });
         _builder.Set("transform[0].window[0]", new
-        {
-            op = "percent_rank",
-            field = "count",
-            @as = outputName
-        });
+                                               {
+                                                   op = "percent_rank",
+                                                   field = "count",
+                                                   @as = outputName
+                                               });
         _builder.Set("transform[0].frame", new object?[] { null, 0 });
 
         _builder.Set($"{Axis(VegaAxisName.Y)}.field", outputName);
@@ -199,11 +206,11 @@ public class VegaChart
         var colorAxisField = _builder.Get($"{Axis(VegaAxisName.Color)}.field", string.Empty);
 
         var toolTips = seriesNames.Select(s => new
-            {
-                field = s,
-                type = ToVegaString(VegaAxisType.Quantitative)
-            })
-            .ToArray();
+                                               {
+                                                   field = s,
+                                                   type = ToVegaString(VegaAxisType.Quantitative)
+                                               })
+                                  .ToArray();
 
 
         var rulerLayer = $$$"""
@@ -254,9 +261,9 @@ public class VegaChart
         //note to cope with spaces and invalid chars in the x-axis name we use bracket rather than dot notation
         //to embed it in the calculate expression
 
-        var xTransformation = GetAxisType(VegaAxisName.X) == VegaAxisType.Temporal 
-            ? $$$""",{"calculate": "datetime(datum['{{{xAxisField}}}'])", "as": "{{{xAxisField}}}"}"""
-            : string.Empty;
+        var xTransformation = GetAxisType(VegaAxisName.X) == VegaAxisType.Temporal
+                                  ? $$$""",{"calculate": "datetime(datum['{{{xAxisField}}}'])", "as": "{{{xAxisField}}}"}"""
+                                  : string.Empty;
 
         var rulerLayer = $$$"""
                             [
@@ -304,10 +311,10 @@ public class VegaChart
     public VegaChart AddFacet(ColumnDescription column)
     {
         _builder.Set("encoding.facet", new
-        {
-            field = column.QualifiedColumnName,
-            columns = 1
-        });
+                                       {
+                                           field = column.QualifiedColumnName,
+                                           columns = 1
+                                       });
 
         return this;
     }
