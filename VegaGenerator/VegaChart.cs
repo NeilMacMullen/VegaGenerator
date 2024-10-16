@@ -125,13 +125,6 @@ public class VegaChart
         return this;
     }
 
-    public VegaChart UpdateLabel(VegaAxisName axis, string label)
-    {
-        _builder.Remove($"{Axis(axis)}.axis.title");
-        _builder.Set($"{Axis(axis)}.axis.title", label);
-        return this;
-    }
-
     public static VegaAxisType InferSuitableAxisType(Type t)
     {
         var numericTypes = new[]
