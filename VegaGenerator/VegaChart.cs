@@ -1,6 +1,5 @@
 ﻿using System.Collections.Specialized;
 using JPoke;
-using static System.Formats.Asn1.AsnWriter;
 
 #pragma warning disable CS8618
 public class VegaChart
