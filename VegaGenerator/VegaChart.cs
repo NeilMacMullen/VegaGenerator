@@ -127,7 +127,7 @@ public class VegaChart
 
     public VegaChart SetTransformFilter(string filter)
     {
-        _builder.Set("transform.filter", filter);
+        _builder.Set("transform", new List<object> { new { filter } });
 
         return this;
     }
