@@ -1,5 +1,6 @@
 ﻿using System.Collections.Specialized;
 using JPoke;
+using static System.Formats.Asn1.AsnWriter;
 
 #pragma warning disable CS8618
 public class VegaChart
@@ -122,6 +123,13 @@ public class VegaChart
     public VegaChart SetLabel(VegaAxisName axis, string label)
     {
         _builder.Set($"{Axis(axis)}.title", label);
+        return this;
+    }
+
+    public VegaChart SetTransformFilter(string filter)
+    {
+        _builder.Set("transform.filter", filter);
+
         return this;
     }
 
