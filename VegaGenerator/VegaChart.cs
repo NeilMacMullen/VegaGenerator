@@ -125,6 +125,13 @@ public class VegaChart
         return this;
     }
 
+    public VegaChart SetTransformFilter(string filter)
+    {
+        _builder.Set("transform.filter", filter);
+
+        return this;
+    }
+
     public static VegaAxisType InferSuitableAxisType(Type t)
     {
         var numericTypes = new[]
